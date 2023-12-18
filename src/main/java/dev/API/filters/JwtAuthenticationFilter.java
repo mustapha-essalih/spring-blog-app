@@ -19,7 +19,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor
@@ -43,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
         username = jwtService.extractUserName(jwt);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userService.loadUserByUsername(username);
+            UserDetails userDetails = userService.userDetailsService().loadUserByUsername(username);
             if (jwtService.isTokenValid(jwt, userDetails)) {
             SecurityContext context = SecurityContextHolder.createEmptyContext();
             System.out.println(userDetails.getAuthorities());

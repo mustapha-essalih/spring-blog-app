@@ -6,11 +6,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import dev.API.dto.LoginResponseDto;
 import dev.API.dto.SigninDto;
 import dev.API.dto.SignupDto;
 import dev.API.entity.Roles;
@@ -29,11 +27,11 @@ public class AuthenticationService {
 
     public ResponseEntity<?> sigup(SignupDto dto){
 
-        if (userRepository.findUserByUsername(dto.getUsername()).isPresent()) {
+        if (userRepository.findByUsername(dto.getUsername()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("username aleredy exist.");
         }
 
-        if (userRepository.findUserByEmail(dto.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email aleredy exist.");
         }
         
@@ -45,14 +43,14 @@ public class AuthenticationService {
     }
 
     public ResponseEntity<?> signin(SigninDto dto){
-        
+        System.out.println(dto.getUsername());
         try {
             
             Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
     
             SecurityContextHolder.getContext().setAuthentication(auth);
     
-            String token = jwtService.generateToken(userRepository.findUserByUsername(dto.getUsername()).get());
+            String token = jwtService.generateToken(userRepository.findByUsername(dto.getUsername()).get());
             
             return ResponseEntity.status(HttpStatus.OK).body(token);
 
