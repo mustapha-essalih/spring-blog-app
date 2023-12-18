@@ -1,12 +1,14 @@
 package dev.API.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
-import dev.API.model.entity.RootUser;
+import dev.API.entity.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<RootUser , Integer>{
-    RootUser findByUsername(String username);
+public interface UserRepository  extends JpaRepository<User , Integer> {
+    Optional<User> findUserByUsername(String username);
+    Optional<User> findUserByEmail(String email);
 }

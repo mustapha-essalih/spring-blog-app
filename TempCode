@@ -1,4 +1,0 @@
-Users users = new Users();
-			users.setEmail("test@email.com");
-			RootUser rootUser = new RootUser("messalih" , "1234" ,users);
-			repository.save(rootUser);
