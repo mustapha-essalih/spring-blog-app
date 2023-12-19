@@ -1,4 +1,4 @@
-I've designed and implemented a comprehensive Spring Boot blog application utilizing JPA for data persistence, secured by Spring Security alongside JWT (JSON Web Tokens) for authentication and authorization. The application features distinct user roles:
+I've designed and implemented a  Spring Boot blog application utilizing JPA for data persistence, secured by Spring Security alongside JWT (JSON Web Tokens) for authentication and authorization. The application features distinct user roles:
 
 User Authentication and Registration: Implemented user login and registration functionalities, ensuring secure access to the system.
 
